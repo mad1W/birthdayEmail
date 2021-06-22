@@ -11,4 +11,6 @@ public interface EmailService {
      * @return ResultBean
      */
     ResultBean sendEmail(String account, String subject, String content);
+
+    ResultBean readTxtAndSendEmail();
 }

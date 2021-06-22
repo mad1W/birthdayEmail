@@ -12,8 +12,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.ResourceUtils;
 
-import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = BirthdayEmailApplication.class)
@@ -27,7 +27,12 @@ public class MyTest {
      */
     @Test
     public void sendEmailTest(){
-        ResultBean resultBean = emailService.sendEmail("3107889098@qq.com", "这是邮件主题", "这是邮件的内容");
+        ResultBean resultBean = null;
+        try {
+            resultBean = emailService.readTxtAndSendEmail();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         System.out.println(JSON.toJSONString(resultBean));
     }
 
@@ -36,7 +41,7 @@ public class MyTest {
      */
     @Test
     public void readTxtTest() throws IOException {
-        String txt = ReadTxtUtil.readTxt(ResourceUtils.getFile("classpath:employee.txt"));
+        List<String> txt = ReadTxtUtil.readTxt(ResourceUtils.getFile("classpath:employee.txt"));
         System.out.println(txt);
     }
 }
